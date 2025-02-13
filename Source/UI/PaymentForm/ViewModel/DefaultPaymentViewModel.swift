@@ -182,7 +182,10 @@ extension DefaultPaymentViewModel: PaymentViewControllerDelegate {
         checkoutAPIService.createToken(.card(card)) { [weak self] result in
             self?.logTokenResult(result)
             self?.isLoading = false
-            self?.cardTokenRequested?(result)
+
+            DispatchQueue.main.async {
+                self?.cardTokenRequested?(result)
+            }
         }
     }
 
